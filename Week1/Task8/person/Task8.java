@@ -10,11 +10,11 @@ public class Task8
     {
         String search = args[0];
         ArrayList<Person> names = new ArrayList<Person>();
-        names.add(new Person("Indiana", "Jones"))x;
-        names.add(new Person("Han", "Solo"));
-        names.add(new Person("Rick", "Deckard"));
-        names.add(new Person("Alexei", "Vostrikov"));
-        names.add(new Person("Jack", "Ryan"));
+        names.add(new Person("Indiana", "Jones", "0800-313-5134"));
+        names.add(new Person("Han", "Solo", "0133-135-3533"));
+        names.add(new Person("Rick", "Deckard", "0135-315-5424"));
+        names.add(new Person("Alexei", "Vostrikov", "519-135-3513"));
+        names.add(new Person("Jack", "Ryan", "135-354-1343"));
         /*{
         "Indiana Jones",
         "Han Solo",

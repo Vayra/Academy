@@ -2,9 +2,9 @@ package person;
 
 public class Person
 {
-    public String firstName;
-    public String lastName;
-    public String phoneNum;
+    private String firstName;
+    private String lastName;
+    private String phoneNum;
 
     public Person()
     {
@@ -36,6 +36,11 @@ public class Person
         return this.firstName + " " + this.lastName;
     }
 
+    public String getNum()
+    {
+        return this.phoneNum;
+    }
+    
     public boolean contains(String query)
     {
         return this.getName().contains(query);
