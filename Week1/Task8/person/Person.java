@@ -8,20 +8,17 @@ public class Person
 
     public Person()
     {
-        firstName = "";
-        lastName = "";
-        phoneNum = "";
+        this("", "", "");
     }
     
     public Person(String first)
     {
-        this.firstName = first;
+        this(first, "", "");
     }
 
     public Person(String first, String last)
     {
-        this.firstName = first;
-        this.lastName = last;
+        this(first, last, "");
     }
 
     public Person(String first, String last, String num)
@@ -40,7 +37,7 @@ public class Person
     {
         return this.phoneNum;
     }
-    
+
     public boolean contains(String query)
     {
         return this.getName().contains(query);

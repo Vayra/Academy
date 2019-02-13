@@ -11,7 +11,10 @@ public class Task9
         
         try(BufferedReader br = new BufferedReader(new FileReader(args[0])))
         {
-            long size = new File(args[0]).length();
+            File f = new File(args[0]);
+            long size = f.length();
+            String fname = f.getName();
+            
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();
 
@@ -23,15 +26,18 @@ public class Task9
                 line = br.readLine();
             }
             String content = sb.toString();
-            Scanner in = new Scanner(System.in);
-            System.out.printf("File size: %d\n", size);
+            
+            System.out.printf("Filename: %s\n", fname);
+            System.out.printf("File size: %d bytes\n", size);
             System.out.printf("# of lines: %d\n", lines);
             System.out.println("Enter keyword to search text (0 to exit)");
+            
             String query = "";
+            Scanner in = new Scanner(System.in);
 
-            while (query != "0")
+            while (true)
             {
-                query = in.nextLine();
+                query = in.nextLine().toLowerCase();
                 if (query.contentEquals("0")) break;
                 int n = 0;
                 String[] words = content.toLowerCase().split(" ");
@@ -42,10 +48,10 @@ public class Task9
                 System.out.printf("The file contains %d instances of '%s'.\n", n, query);
             }
 
-
+            in.close();
         } catch(Exception e)
         {
-            System.out.println("Error occured\nUsage: java task9 *filename*");
+            System.out.println("Could not read input file!\nUsage: java task9 *filename*");
             System.exit(1);
         }       
         
