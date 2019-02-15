@@ -82,7 +82,7 @@ public class Board
         //Rising Diagonal
         for (int i = 0-sideLen; i <sideLen; i++)
         {
-            if (rank+i >= 0 && rank+i <= 7 && file+i >= 0 && file+i <= 7)
+            if (rank+i >= 0 && rank+i < sideLen && file+i >= 0 && file+i < sideLen)
             {
                 if (board[rank+i][file+i].equals("Q") && i != 0) {return true;}
             }
@@ -90,7 +90,7 @@ public class Board
         //Descending diagonal
         for (int i = 0-sideLen; i <sideLen; i++)
         {
-            if (rank-i >= 0 && rank-i <= 7 && file+i >= 0 && file+i <= 7)
+            if (rank-i >= 0 && rank-i < sideLen && file+i >= 0 && file+i < sideLen)
             {
                 if (board[rank-i][file+i].equals("Q") && i != 0) {return true;}
             }
