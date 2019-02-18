@@ -1,5 +1,8 @@
 package no.noroff.task13;
 
+import no.noroff.task13.movements.fly;
+import no.noroff.task13.movements.walk;
+
 import java.util.Random;
 
 public class Raven extends Omnivore implements fly, walk {
@@ -10,6 +13,7 @@ public class Raven extends Omnivore implements fly, walk {
 
     public Raven(String name) {
         super(name);
+        species = "Raven";
         movementTypes = new String[]{"walk", "fly"};
     }
 
@@ -26,6 +30,7 @@ public class Raven extends Omnivore implements fly, walk {
     @Override
     public void move() {
         int moveType = new Random().nextInt(movementTypes.length);
+        listMovement();
         switch (movementTypes[moveType]) {
             case "walk":
                 this.walk();

@@ -1,5 +1,8 @@
 package no.noroff.task13;
 
+import no.noroff.task13.movements.run;
+import no.noroff.task13.movements.walk;
+
 import java.util.Random;
 
 public class Cow extends Herbivore implements walk, run {
@@ -27,6 +30,7 @@ public class Cow extends Herbivore implements walk, run {
     @Override
     public void move() {
         int moveType = new Random().nextInt(movementTypes.length);
+        listMovement();
         switch (movementTypes[moveType]) {
             case "walk":
                 this.walk();

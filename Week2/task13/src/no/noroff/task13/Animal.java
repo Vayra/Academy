@@ -1,5 +1,7 @@
 package no.noroff.task13;
 
+import no.noroff.task13.movements.movement;
+
 public abstract class Animal implements movement
 {
     protected String name;
@@ -22,7 +24,7 @@ public abstract class Animal implements movement
         }
         sb.deleteCharAt(sb.lastIndexOf(","));
         sb.deleteCharAt(sb.lastIndexOf(" "));
-        sb.replace(sb.lastIndexOf(","), sb.lastIndexOf(" "), "and");
+        sb.replace(sb.lastIndexOf(","), sb.lastIndexOf(" "), " and");
         sb.append(".");
         System.out.println(sb.toString());
     }
