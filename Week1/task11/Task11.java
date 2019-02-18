@@ -27,13 +27,6 @@ public class Task11
         int[] decoded = new int[]{
             start.charAt(0)-65,
             start.charAt(1)-49};
-        //decoded[0] = start.charAt(0)-65;
-        //decoded[1] = start.charAt(1)-49;
-        //decoded[1] = Integer.parseInt(start.substring(1))-1;
-
-        String letters = "ABCDEFGH";
-        //decoded[0] = letters.indexOf(start.substring(0,1));
-        
         
         return decoded;
     }

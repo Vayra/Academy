@@ -3,8 +3,7 @@ package task11;
 public class EightQueens
 {
     Board board;
-    int startFile, placedQueens, size;
-    static int maxQueens = 8;
+    int startFile, size;
 
     public EightQueens(int size,int startRank,int startFile)
     {
@@ -14,7 +13,6 @@ public class EightQueens
         
         board.placeQueen(startRank, startFile);
         //board.printBoard();
-        placedQueens = 1;
     }
 
     public boolean solve(){return solve(0, startFile);}
