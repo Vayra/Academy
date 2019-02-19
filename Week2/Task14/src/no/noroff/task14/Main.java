@@ -3,7 +3,6 @@ package no.noroff.task14;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -36,31 +35,56 @@ public class Main {
             //Print basic info
             System.out.println("Name: " + jo.get("name"));
             System.out.println("Gender: " + jo.get("gender"));
-            JSONArray titles = jo.getJSONArray("titles");
+            System.out.println("Born: " + jo.get("born"));
+            System.out.println("Died: " + jo.get("died"));
 
-            System.out.println("Titles:");
-            for (Object title: titles) System.out.println(title);
+            JSONArray aliases = new JSONArray(jo.get("aliases").toString());
+            System.out.println("Aliases:");
 
-            System.out.println("Allegiances:");
-            JSONArray allegiances = jo.getJSONArray("allegiances");
-            for (int i = 0; i < allegiances.length();i++){
-                house = new JSONObject(requestURL((String)allegiances.get(i)));
-                System.out.println(house.get("name"));
-            }
-            for (int i = 0; i < allegiances.length();i++){
-                house = new JSONObject(requestURL((String)allegiances.get(i)));
-                System.out.println("Do you want to list all sworn members of " + house.get("name") +"? (Y/N)");
-                input = in.next();
-                if (input.equals("Y")){
-                    JSONArray members = house.getJSONArray("swornMembers");
-                    System.out.println("Members of "+house.get("name") + ":");
-                    for (Object memberSworn:members)
-                    {
-                        member = new JSONObject(requestURL((String)memberSworn));
-                        System.out.println(member.get("name"));
+            if (aliases.length()> 0) {
+                if (!aliases.get(0).toString().equals("")) {
+                    for (int i = 0; i < aliases.length(); i++) {
+                        System.out.println("\t" +aliases.get(i));
                     }
-                }
-            }
+                } else System.out.println("\tNo known aliases");
+            } else System.out.println("\tNo known aliases");
+
+            JSONArray titles = jo.getJSONArray("titles");
+            System.out.println("Titles:");
+
+            if (titles.length() > 0)
+            {
+                if (!titles.get(0).toString().equals("")) {
+                    for (Object title : titles) System.out.println("\t" +title);
+                } else System.out.println("\tNo titles");
+            } else System.out.println("\tNo titles");
+
+            JSONArray allegiances = jo.getJSONArray("allegiances");
+            System.out.println("Allegiances:");
+
+            if (allegiances.length() > 0)
+            {
+                if (!allegiances.get(0).toString().equals(""))
+                {
+                    for (int i = 0; i < allegiances.length(); i++) {
+                        house = new JSONObject(requestURL((String) allegiances.get(i)));
+                        System.out.println("\t" + house.get("name"));
+                    }
+                    for (int i = 0; i < allegiances.length(); i++) {
+                        house = new JSONObject(requestURL((String) allegiances.get(i)));
+                        System.out.println("Do you want to list all sworn members of " + house.get("name") + "? (Y/N)");
+                        input = in.next();
+                        if (input.equalsIgnoreCase("y")) {
+                            JSONArray members = house.getJSONArray("swornMembers");
+                            System.out.println("Members of " + house.get("name") + ":");
+                            for (Object memberSworn : members) {
+                                member = new JSONObject(requestURL((String) memberSworn));
+                                System.out.println("\t" +member.get("name"));
+                            }
+                        }
+                    }
+                } else System.out.println("\tNo allegiances");
+            } else System.out.println("\tNo allegiances");
 
 
         }
@@ -68,21 +92,22 @@ public class Main {
         ArrayList<JSONObject> books = new ArrayList<>();
         ArrayList<String> povChars = new ArrayList<>();
         ArrayList<String> povCharNames = new ArrayList<>();
+        JSONArray books2 = new JSONArray(requestURL("https://anapioficeandfire.com/api/books/?pageSize=20"));
 
-        for (int i = 1; i <13; i++){
-            JSONObject book = new JSONObject(requestURL("https://anapioficeandfire.com/api/books/"+i));
-            if (book.get("publisher").equals("Bantam Books"))
+        for (Object book:books2)
+        {
+            if (((JSONObject)book).get("publisher").equals("Bantam Books"))
             {
-                JSONArray chars = book.getJSONArray("povCharacters");
+                JSONArray chars = ((JSONObject)book).getJSONArray("povCharacters");
                 for (Object ch : chars) {
-                    if (!povChars.contains(ch)) {
+                    if (!povChars.contains(ch)) { // Avoid duplicates
                         povChars.add((String) ch); //Adds whole url for API call
                     }
                 }
-                books.add(book);
+                books.add(((JSONObject)book));
             }
         }
-        String[][] grid = new String[povChars.size()][8];
+        String[][] grid = new String[povChars.size()][books.size()];
         // Fill grid with empty strings instead of null.
         for (int i=0; i<povChars.size();i++)
         {
@@ -150,7 +175,7 @@ public class Main {
                 "* 3 : A Storm of Swords\n" +
                 "* 4 : A Feast for Crows\n" +
                 "* 5 : A Dance With Dragons");
-        System.out.println("Book\t1\t2\t3\t4\t5\tName");
+        System.out.println("Book\t1\t2\t3\t4\t5\tName"); // Books beyond 5 have no PoV characters
         for (int i = 0; i < povChars.size();i++) {
             System.out.println("\t\t" + grid[i][0] + "\t" + grid[i][1] + "\t" + grid[i][2] +
                     "\t" + grid[i][3] + "\t" + grid[i][4] + "\t" + povCharNames.get(i));
